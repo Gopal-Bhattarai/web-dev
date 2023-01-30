@@ -9,7 +9,7 @@ export const BlackLogo = '/img/logo_dark.png'
 
 export const DeliveryCharge = 80
 
-export const ContactDetail ={
+export const ContactDetail = {
     address: 'Sangam Marg, Khumaltar, Lalitpur',
     email: 'gbhattarai55@gmail.com',
     phone: '9843891333, 9803996555'

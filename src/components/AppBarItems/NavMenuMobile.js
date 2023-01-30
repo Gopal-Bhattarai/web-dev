@@ -1,11 +1,22 @@
-import {  Box, IconButton, ListItemIcon, ListItemText, Menu, MenuItem,  Tooltip} from "@mui/material"
+import {  Box, IconButton, ListItemIcon, ListItemText, Menu, MenuItem,  styled,  Tooltip} from "@mui/material"
 import { useContext, useState } from "react";
 import MenuIcon from '@mui/icons-material/Menu';
 import { LINK_ITEM } from "./LINK_ITEM";
 import Link from "next/link";
-import { Flex } from "./MenuLinkStyle";
 import { DarkModeContext } from "../State/DarkModeContext";
 import DarkModeIconMenu from "./DarkModeIconMenu";
+import { Flex } from "./MenuLinkStyle";
+
+
+// const Flex = styled(Box)`
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     width: 40px;
+//     text-decoration: none;
+// `;
+
+
 
 const NavMenuMobile = () => {
 
@@ -20,7 +31,6 @@ const NavMenuMobile = () => {
   const navLinkOnClose = (e) => {
     setAnchorEl(null);
   };
-
 
   return (
     <>
@@ -57,7 +67,7 @@ const NavMenuMobile = () => {
                                 { link.icon }
                             </ListItemIcon>
                             <ListItemText inset>
-                                <Flex>
+                                <Flex sx={{ color: mode ? 'white' : 'black' }}>
                                 { link.name }
                                 </Flex>
                             </ListItemText>
