@@ -1,34 +1,35 @@
-import Layout from '@/components/Layout'
 import ProductItem from '@/components/ProductItem'
-import { Box, Grid, Paper, Stack, TextField, Typography } from '@mui/material'
-import { initMongoose } from 'lib/connectdb'
+import { ProductContext } from '@/components/State/ProductContext'
+import { Box, CircularProgress, Grid, Paper, Stack, TextField, Typography } from '@mui/material'
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
-import { findAllProducts, findAllProductsQuery } from './api/products'
+import { useContext, useEffect, useState } from 'react'
 
 
 export default function Home() {
-  const [phrase, setPhrase] = useState('')
+  const {phrase, setPhrase} = useContext(ProductContext)
   const [products, setProducts]=useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   const categoriesNames = [...new Set(products.map(p=>p.category))]
 
 
-  if(phrase) {
-    setProducts(products.filter(p=>p.productName.toLowerCase().includes(phrase)))
-  } 
 
   const getAllProductsQuery = async () => {
-    
       await fetch("api/products")
         .then((response) => response.json())
-        .then((json) => setProducts(json));
+        .then((json) => {
+          setProducts(json)
+          setIsLoading(false)
+        });
   };
 
   useEffect(()=>{
     getAllProductsQuery()
-
   },[])
+
+  if(isLoading) {
+    return <CircularProgress />
+  } else {
 
   return (
     <>
@@ -42,19 +43,20 @@ export default function Home() {
 <Paper sx={{mt:7, mx:-1, py:4, px:10}}>
         
     <Stack>
-        <TextField type="text" value={phrase} onChange={(e)=>setPhrase(e.target.value)} placeholder='search for products...' className='bg-gray-100 w-full py-2 px-4 rounded-xl'/>
+        <TextField type="text" value={phrase} onChange={(e)=>setPhrase(e.target.value)} placeholder='search for products...' />
     </Stack>
         
         <Grid container alignItems="center" justifyContent="center">
 
             {categoriesNames.map(categoryName=> (
             <Box key={categoryName}>
-                {products.find(p=>p.category === categoryName) && (
+                {products.find(p=>p.category === categoryName && 
+                  p.productName.toLowerCase().includes(phrase.toLowerCase()))  && (
                 <>
                     <Typography variant="overline">{categoryName}</Typography>
                     <Grid item>
                         <Grid container spacing={3} alignItems="center" justifyContent="center">
-                        {products.filter(p=>p.category === categoryName).map(product=>(
+                        {products.filter(p=>p.category === categoryName && p.productName.toLowerCase().includes(phrase.toLowerCase())).map(product=>(
                         <Grid item key={product._id} >
                             <ProductItem product={product} />
                         </Grid>
@@ -71,6 +73,7 @@ export default function Home() {
 
     </>
   )
+}
 }
 
 // export async function getServerSideProps(){

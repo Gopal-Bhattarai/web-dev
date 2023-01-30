@@ -4,7 +4,7 @@ import { SpeedDial, SpeedDialAction, SpeedDialIcon } from "@mui/material"
 const SpeedDialComponent = () => {
   return (
     <SpeedDial ariaLabel='Navigation speed dial'
-    sx={{ position: 'absolute', bottom:16, right: 16}}
+    sx={{ position: 'fixed', bottom:16, right: 16}}
     icon={<SpeedDialIcon />} >
 
         <SpeedDialAction icon={<Save />} tooltipTitle='Save' />

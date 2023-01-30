@@ -23,6 +23,7 @@ export function ProductContextProvider({ children }) {
     }
   };
 
+  //calculating total amounts
   let delivery = DeliveryCharge;
   let subtotal = 0;
 
@@ -34,6 +35,12 @@ export function ProductContextProvider({ children }) {
   }
   const total = subtotal + delivery;
 
+
+  //search products
+  const [phrase, setPhrase] = useState('')
+
+
+
   return (
     <ProductContext.Provider
       value={{
@@ -41,7 +48,8 @@ export function ProductContextProvider({ children }) {
         setSelectedProducts,
         getProductsFromCart,
         productsInfo,
-        subtotal, delivery, total
+        subtotal, delivery, total,
+        phrase, setPhrase,
       }}
     >
       {children}
