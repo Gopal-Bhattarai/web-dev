@@ -1,10 +1,9 @@
-import Featured from '@/components/Featured'
+import AboutInfo from "@/components/AboutInfo"
 import { KeyWords, MetaTag, Title } from '@/components/OwnerDetail'
-import { Box, Paper } from '@mui/material'
-import Head from 'next/head'
+import { Box } from "@mui/material"
+import Head from "next/head"
 
-
-export default function Home() {
+const about = () => {
   return (
     <>
       <Head>
@@ -16,9 +15,11 @@ export default function Home() {
         <meta name="description" content={MetaTag} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box sx={{py:5, my:5, mx:-1 }} width={{xs: '360px', sm: '600px', md: '900px'}}>
-       <Featured />
+      <Box sx={{mt:5, mx:-1}}>
+        <AboutInfo />
       </Box>
     </>
   )
 }
+
+export default about
