@@ -4,7 +4,7 @@ import { Box, Grid, Paper, Stack, TextField, Typography } from '@mui/material'
 import { initMongoose } from 'lib/connectdb'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
-import { findAllProducts } from './api/products'
+import { findAllProducts, findAllProductsQuery } from './api/products'
 
 
 export default function Home({products}) {
@@ -63,7 +63,9 @@ export default function Home({products}) {
 export async function getServerSideProps(){
   await initMongoose();
 
-  const products = await findAllProducts();
+  const page=1, limit=5; 
+  const products = await findAllProductsQuery()
+  // const products = await findAllProducts();
   
   return {
     props: {

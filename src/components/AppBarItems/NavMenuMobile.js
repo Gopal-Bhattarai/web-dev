@@ -32,9 +32,9 @@ const NavMenuMobile = () => {
               >
                 {/* display hamburgur menuicon in mobile */}
                 <Box sx={{ flexGrow:1, display: {xs: 'flex', md: 'none'}}}>
-                    <IconButton size="large" onClick={navLinkOnClick} color="inherit">
-                        <MenuIcon />
-                    </IconButton>
+                    {/* <IconButton size="large" onClick={navLinkOnClick} color="inherit"> */}
+                        <MenuIcon onClick={navLinkOnClick} />
+                    {/* </IconButton> */}
                 </Box>
               </IconButton>
             </Tooltip>
