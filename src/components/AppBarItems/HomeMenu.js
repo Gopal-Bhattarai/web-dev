@@ -21,7 +21,7 @@ const HomeMenu = () => {
           />
         </svg>
 
-        <Typography>Store</Typography>
+        <Typography>Home</Typography>
       </Flex>
     </Link>
   );

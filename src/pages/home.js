@@ -7,15 +7,28 @@ import { useEffect, useState } from 'react'
 import { findAllProducts, findAllProductsQuery } from './api/products'
 
 
-export default function Home({products}) {
+export default function Home() {
   const [phrase, setPhrase] = useState('')
+  const [products, setProducts]=useState([])
 
   const categoriesNames = [...new Set(products.map(p=>p.category))]
 
 
   if(phrase) {
-    products = products.filter(p=>p.productName.toLowerCase().includes(phrase))
+    setProducts(products.filter(p=>p.productName.toLowerCase().includes(phrase)))
   } 
+
+  const getAllProductsQuery = async () => {
+    
+      await fetch("api/products")
+        .then((response) => response.json())
+        .then((json) => setProducts(json));
+  };
+
+  useEffect(()=>{
+    getAllProductsQuery()
+
+  },[])
 
   return (
     <>
@@ -60,16 +73,16 @@ export default function Home({products}) {
   )
 }
 
-export async function getServerSideProps(){
-  await initMongoose();
+// export async function getServerSideProps(){
+//   await initMongoose();
 
-  const page=1, limit=5; 
-  const products = await findAllProductsQuery()
-  // const products = await findAllProducts();
+//   const page=1, limit=5; 
+//   const products = await findAllProductsQuery()
+//   // const products = await findAllProducts();
   
-  return {
-    props: {
-      products: JSON.parse(JSON.stringify(products))
-    }
-  }
-}
+//   return {
+//     props: {
+//       products: JSON.parse(JSON.stringify(products))
+//     }
+//   }
+// }

@@ -20,7 +20,7 @@ export default async function handler(req, res){
         const data = await Product.find( {_id:{$in:ids.split(',')}} ).exec();
         res.json( data  )
     } else {
-        res.json( await findAllProducts() )
+        res.json( await findAllProductsQuery() )
     }
 
 }
