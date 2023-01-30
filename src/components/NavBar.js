@@ -41,7 +41,9 @@ const NavBar = () => {
     <AppBar>
       <Toolbar>
 
-        <NavMenuMobile />
+        <Box sx={{flexGrow:1, display: {xs: 'flex', md: 'none'}}}>
+          <NavMenuMobile />
+        </Box>
 
         {/* company logo, index.js */}
         <Logo />
@@ -50,6 +52,7 @@ const NavBar = () => {
           <HomeMenu />
           <AboutMenu />
           <ContactMenu />
+          <DarkModeIconMenu setMode={setMode} />
         </Stack>
 
         <CartMenu />
@@ -60,7 +63,6 @@ const NavBar = () => {
           <UserOptionsMain user={user} />
         )}
 
-        <DarkModeIconMenu setMode={setMode} />
       </Toolbar>
     </AppBar>
   </>

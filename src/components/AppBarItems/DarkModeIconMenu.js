@@ -7,7 +7,6 @@ const DarkModeIconMenu = ({setMode}) => {
 
   return (
     <IconButton
-          sx={{ ml: 1, display: { xs: 'none', md: 'flex' } }}
           onClick={() => setMode((e) => !e)}
           color="inherit"
         >

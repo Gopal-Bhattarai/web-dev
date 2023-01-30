@@ -1,14 +1,16 @@
-import { Avatar, Box, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Stack, Tooltip, Typography } from "@mui/material"
-import { useState } from "react";
+import {  Box, IconButton, ListItemIcon, ListItemText, Menu, MenuItem,  Tooltip} from "@mui/material"
+import { useContext, useState } from "react";
 import MenuIcon from '@mui/icons-material/Menu';
-import HomeMenu from "./HomeMenu";
-import AboutMenu from "./AboutMenu";
-import ContactMenu from "./ContactMenu";
 import { LINK_ITEM } from "./LINK_ITEM";
 import Link from "next/link";
 import { Flex } from "./MenuLinkStyle";
+import { DarkModeContext } from "../State/DarkModeContext";
+import DarkModeIconMenu from "./DarkModeIconMenu";
 
 const NavMenuMobile = () => {
+
+  const { mode, setMode } = useContext(DarkModeContext);
+
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -62,6 +64,14 @@ const NavMenuMobile = () => {
                         </MenuItem>
                     </Link>
                 ))}
+                    <MenuItem>
+                      <ListItemIcon>
+                          <DarkModeIconMenu setMode={setMode} />
+                      </ListItemIcon>
+                      <ListItemText inset>
+                        {mode? 'Light Mode' : 'Dark Mode'}
+                      </ListItemText>
+                    </MenuItem>
             </Menu>
             
           </>
