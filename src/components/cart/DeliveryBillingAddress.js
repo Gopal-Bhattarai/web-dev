@@ -12,7 +12,7 @@ const DeliveryBillingAddress = () => {
 
   return (
     <Box display="flex" justifyContent="center" marginTop={4} mx={2}>
-    <Paper sx={{ minWidth: "360px", maxWidth: "900px", padding: 2 }}>
+    <Paper sx={{ minWidth: "300px", maxWidth: "900px", padding: 2 }}>
     <Stack spacing={1} px={2}>
         <Typography variant="overline">
         Delivery & Billing Address
