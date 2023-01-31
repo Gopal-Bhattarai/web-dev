@@ -6,7 +6,7 @@ import Head from "next/head"
 import { useRouter } from 'next/router'
 import { useContext, useEffect } from 'react'
 
-const contact = () => {
+const Product = () => {
     const router = useRouter()
     const productid = router.query.id;
   
@@ -14,6 +14,7 @@ const contact = () => {
     
     useEffect(()=>{
       productid ? getProduct(productid) : void 0
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     },[productid])
     
   return (
@@ -40,4 +41,4 @@ const contact = () => {
   )
 }
 
-export default contact
+export default Product

@@ -11,6 +11,7 @@ const {getProductsFromCart, selectedProducts, productsInfo} = useContext(Product
 
 useEffect(()=>{
     getProductsFromCart();
+// eslint-disable-next-line
 },[selectedProducts])
 
   return (

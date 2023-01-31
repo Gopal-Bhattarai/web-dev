@@ -17,6 +17,7 @@ export default function Checkout() {
 
   useEffect(() => {
     getProductsFromCart()
+    // eslint-disable-next-line
   }, [selectedProducts]);
 
 

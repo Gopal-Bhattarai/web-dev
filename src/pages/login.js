@@ -21,6 +21,7 @@ const Login = () => {
       }
     }
     securePage();
+    // eslint-disable-next-line
   },[])
 
   if(loading) {

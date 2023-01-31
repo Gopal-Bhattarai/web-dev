@@ -33,7 +33,7 @@ const NavBar = () => {
       setUser(user);
     };
     getUserSessionData();
-
+  // eslint-disable-next-line
   }, []);
 
   return (
