@@ -2,13 +2,16 @@ import { Share} from "@mui/icons-material"
 import { Button, Card, CardActions, CardContent, CardMedia, Chip, IconButton, Rating, Stack, Typography } from "@mui/material"
 import Link from "next/link"
 import { useContext } from "react"
+import { DarkModeContext } from "./State/DarkModeContext"
 import { ProductContext } from "./State/ProductContext"
 
 export default function ProductItem({product}) {
   const {setSelectedProducts} = useContext(ProductContext)
+  const {setToast} = useContext(DarkModeContext)
   
   const addProduct=()=>{
     setSelectedProducts(prev=>[...prev,product._id])
+    setToast(e=>({...e, show: true, message: 'Item added in cart', severity: 'success', timeout:1500}))
   }
 
   return (

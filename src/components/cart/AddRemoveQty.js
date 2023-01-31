@@ -1,13 +1,15 @@
 import { Button, ButtonGroup, Grid } from "@mui/material";
 import { useContext } from "react";
+import { DarkModeContext } from "../State/DarkModeContext";
 import { ProductContext } from "../State/ProductContext";
 
 const AddRemoveQty = ({ product, btnSize }) => {
   const { selectedProducts, setSelectedProducts } = useContext(ProductContext);
-
+  const { setToast }= useContext(DarkModeContext)
   //Add qty +1
   const moreOfThisProduct = (id) => {
     setSelectedProducts((prev) => [...prev, id]);
+    setToast(e=>({...e, show: true, message: 'One item added to cart', severity:'info', timeout: 1500}))
   };
 
   //remove qty -1
@@ -18,6 +20,7 @@ const AddRemoveQty = ({ product, btnSize }) => {
         return prev.filter((value, index) => index !== pos);
       });
     }
+    setToast(e=>({...e, show: true, message: 'One item removed from cart', severity:'info', timeout: 1500}))
   };
 
   return (

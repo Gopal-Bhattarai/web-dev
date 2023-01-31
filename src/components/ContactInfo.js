@@ -1,38 +1,48 @@
-import { Box, Button, Paper, Stack, TextField, Typography } from "@mui/material"
+import { Box, Button, CircularProgress, Paper, Stack, TextField, Typography } from "@mui/material"
 import { useContext, useState } from "react";
 import { ContactDetail } from "./OwnerDetail"
 import { DarkModeContext } from "./State/DarkModeContext";
-import Toast from "./utils/Toast";
 
 
 const ContactInfo = () => {
 	const [fullName, setFullName]= useState('')
 	const [email, setEmail] = useState('')
 	const [message, setMessage] = useState('')
+	const [isSending, setIsSending] = useState(false)
 
 	const {setToast} = useContext(DarkModeContext)
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		setIsSending(true)
 
 		const sendEmail = async () => {
-			const response = await fetch('api/contact',{
-				method: 'POST',
-				headers: {
-					'Content-Type' : 'application/json',
-				},
-				body: JSON.stringify({fullName, email, message})
-			})
-			const json = await response.json();
-			setToast((e)=>({...e, show: true, severity: 'info', message: json.status}))
-			console.log(json);
+			try {
+				const response = await fetch('api/contact',{
+					method: 'POST',
+					headers: {
+						'Content-Type' : 'application/json',
+					},
+					body: JSON.stringify({fullName, email, message})
+				})
+				const json = await response.json();
+				setToast((e)=>({...e, show: true, severity: 'info', message: 'Thank you, Your message is received.'}))
+				setMessage('')
+				console.log(json);
+				setIsSending(false);
+			} catch (error) {
+				setToast((e)=>({...e, show: true, severity: 'error', message: 'Unable to process, please try later...'}))
+				setIsSending(false);
+			}
 		}
 		sendEmail();
 	}
 
+	if(isSending) {
+		<CircularProgress />
+	} else {
 	return (
 		<Box mt={8}  maxWidth="1200px" mx={1}>
-			<Toast />
 			{/* <Button onClick={()=>setToast((e)=>({...e, show: true}))}>show toast</Button> */}
 			<Stack direction={{xs: "column", md : "row"}} 
 			alignItems='center'
@@ -71,6 +81,7 @@ const ContactInfo = () => {
 			</Paper>
 		</Box>
   )
+}
 }
 
 export default ContactInfo

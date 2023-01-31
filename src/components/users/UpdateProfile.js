@@ -1,11 +1,14 @@
 import { Box, Button, FormControlLabel, Stack, Switch, TextField } from "@mui/material"
 import { UserProfileUpdateAPI } from "APIs/UserProfileAPI";
 import { useContext, useState } from "react";
+import { DarkModeContext } from "../State/DarkModeContext";
 import { UserContext } from "../State/UserContext";
 
 const UpdateProfile = () => {
 
   const { user, setUser } = useContext(UserContext);
+	const {setToast} = useContext(DarkModeContext)
+
   const [password, setPassword] = useState("");
   const [cpassword, setCPassword] = useState("");
   // This variable determines whether password is shown or not
@@ -15,6 +18,7 @@ const UpdateProfile = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (password !== cpassword) {
+          setToast(e=>({...e, show: true, message:'Passwords mismatched', severity:'error'}))
           return null; //notify({title: 'Oooops', message: `Passwords do not matched`, color:'red', icon: <IconX /> })
         }
 
@@ -25,12 +29,10 @@ const UpdateProfile = () => {
           password: password,
         })
           .then((response) => {
-            //   updateNotify({id: 'load-data', title: 'Success', message: response.data.status , icon: <IconCheck size={20} /> })
-            //setUser(response.data.user);
+            setToast(e=>({...e, show: true, message: response.data.status, severity: 'success' }))
           })
           .catch((error) => {
-            // notify({title: 'Oooops', message: 'error.response.data', color:'red', icon: <IconX /> })
-            console.log(error);
+            setToast(e=>({...e, show: true, message: error.response.data, severity: 'error' }))
           });
       };
     

@@ -1,8 +1,9 @@
-import { Button, Paper, Stack } from "@mui/material"
+import { Button, CircularProgress, Paper, Stack } from "@mui/material"
 import { Box } from "@mui/system";
 import { UserProfileChangeAvatar } from "APIs/UserProfileAPI";
 import Image from "next/image";
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
+import { DarkModeContext } from "../State/DarkModeContext";
 import { UserContext } from "../State/UserContext";
 
 const UpdateAvatar = () => {
@@ -10,6 +11,10 @@ const UpdateAvatar = () => {
   const refAvatar = useRef(null);
 
   const { user, setUser } = useContext(UserContext);
+  const {setToast} = useContext(DarkModeContext)
+
+	const [isSending, setIsSending] = useState(false)
+
 
 
     //picture clicked to call File click event
@@ -19,15 +24,16 @@ const UpdateAvatar = () => {
     
       //function to change profile picture
       const handleChange = async (e) => {
+        setIsSending(true)
         const files = document.getElementById("avatar");
+        
         if (files.files.length===0) {
-          console.log("no files selected, cancelled");
+          setToast(e=>({...e, show: true, message:'cancelled by user', severity:'info'}))
           return;
         }
-        // notify({id: 'load-data', title: 'Processing...', message: 'Please be patience while we save your changes...', autoClose: false, disallowClose: true, loading: true })
         setTimeout(() => {
             setUser({ ...user, profile_pic: `/avatar/${user._id}.png?v=${Math.random()}` });
-            console.log(user);
+            setIsSending(false)
         }, 1500);
         const formData = new FormData();
         formData.append("avatar", files.files[0]);
@@ -35,16 +41,16 @@ const UpdateAvatar = () => {
 
         UserProfileChangeAvatar(user, formData)
           .then((response) => {
-            // updateChange(response.data.user)
-            // updateNotify({id: 'load-data', title: 'Success', message: response.data.status , icon: <IconCheck size={20} /> })
-            //console.log(response.data)
+            setToast(e=>({...e, show: true, message: 'New Avatar updated', severity:'success'}))
           })
-          .catch((error) => console.log(error));
+          .catch((error) => setToast(e=>({...e, show: true, message: 'Unable to process your request', severity:'error'})));
       };
 
 
   return (
     <Stack>
+      {isSending ? <CircularProgress /> : (
+        <>
         <Button variant="contained">
           Pick Profile Picture
           <input hidden type="file"
@@ -68,7 +74,9 @@ const UpdateAvatar = () => {
               onClick={handlePicClick}
             />
           </Paper>
-        )}
+        )} 
+        </>
+      )}
     </Stack>
   )
 }

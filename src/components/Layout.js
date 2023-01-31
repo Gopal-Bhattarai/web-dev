@@ -14,6 +14,7 @@ const Layout = ({ children }) => {
 
       <Box display='flex' justifyContent='center' alignItems='center'>
         {children}
+        <Toast />
         <SpeedDialComponent />
         <Footer />
       </Box>
