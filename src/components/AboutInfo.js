@@ -8,7 +8,7 @@ const AboutInfo = () => {
       <Box display="fles" justifyContent="center" alignItems="center">
 
       </Box>
-      <Typography variant="h4" sx={{m:2, color: 'navy'}}>{Motto}</Typography>
+      <Typography variant="h4" color="text.secondary">{Motto}</Typography>
         <Typography  sx={{m:2}}>Committed for definite health, prosperity and knowledge. 
             Our first mission is to provide you clinically relevant nutraceuticals and cosmaceuticals for well being and being young,</Typography> 
         <Typography  sx={{m:2, pb:20}}>Secondly to give you low cost opportunity to become successful self employed and finally to teach, train & motivate you to build your business for your definite success..</Typography>

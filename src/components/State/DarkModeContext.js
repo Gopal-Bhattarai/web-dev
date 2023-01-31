@@ -1,4 +1,4 @@
-import { createTheme, ThemeProvider } from "@mui/material";
+import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { createContext, useMemo, useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
 
@@ -26,6 +26,7 @@ const DarkModeState = ({children}) => {
   return (
     <DarkModeContext.Provider value={{ mode, setMode }}>
         <ThemeProvider theme={theme}>
+        <CssBaseline />
             {children}
         </ThemeProvider>
     </DarkModeContext.Provider>

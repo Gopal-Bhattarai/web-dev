@@ -11,12 +11,12 @@ const TransactionDetails = ({action, typo, message,mw}) => {
   const redirect = () => {
     if(router.pathname!=='/cart'){
       router.push('/cart')
+      action(false)
     }
-    action(false)
   }
   
   return (
-    <Box display="flex" justifyContent="center" marginTop={4}>
+    <Box display="flex" justifyContent="center" alignItems='center' marginTop={4} >
       <Paper sx={{ minWidth: mw, maxWidth: "900px", padding: 2 }}>
         <Typography variant="button" gutterBottom>
           Transaction Details

@@ -22,19 +22,20 @@ export default function Checkout() {
 
 
   return (
-    <Box sx={{ mt: 7, py: 4, px: 1, border: '5px solid red'}}>
+    <Box sx={{ mt: 7, py:3, px:5, border:'4px solid red'}}>
       {!productsInfo.length && <Box>No Products in your shopping cart</Box>}
       {productsInfo.length &&
         productsInfo.map((product) => (
           <Box
             key={product._id}
-            sx={{ mb: 2 }}
+            sx={{ mb: 2, border: '2px solid green' }}
             // display="flex"
             // justifyContent="center"
             // alignItems="center"
           >
 
                   <Stack
+                    border = '3px solid navy'
                     direction={{sx:'column', sm:'row', md:'row'}}
                     spacing={{ xs: 1, sm: 2, md: 4 }}  
                     display = 'flex'          
@@ -55,9 +56,9 @@ export default function Checkout() {
           </Box>
         ))}
 
-      <Grid container spacing={2} alignItems="center" justifyContent="center">
+      <Grid sx={{border: '4px solid red'}} container alignItems="center" justifyContent="center">
         <DeliveryBillingAddress />
-        <TransactionDetails typo={'h6'} message={'confirm order'} mw={'400px'}  />
+        <TransactionDetails typo={'h6'} message={'confirm order'} mw={'300px'}  />
       </Grid>
     </Box>
   );
