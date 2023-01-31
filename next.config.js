@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   env: {
-    HOST: 'http://localhost:3000',
+    HOST: '/',
   }
 }
 
