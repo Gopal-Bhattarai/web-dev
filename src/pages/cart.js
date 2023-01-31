@@ -58,7 +58,7 @@ export default function Checkout() {
 
       <Grid container alignItems="center" justifyContent="center">
         <DeliveryBillingAddress />
-        <TransactionDetails typo={'h6'} message={'confirm order'} mw={'300px'}  />
+        <TransactionDetails typo={'h6'} message={'Place Order'} mw={'300px'}  />
       </Grid>
     </Box>
   );

@@ -1,13 +1,16 @@
 import { Box, Button, Paper, Stack, TextField, Typography } from "@mui/material"
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ContactDetail } from "./OwnerDetail"
-
+import { DarkModeContext } from "./State/DarkModeContext";
+import Toast from "./utils/Toast";
 
 
 const ContactInfo = () => {
 	const [fullName, setFullName]= useState('')
 	const [email, setEmail] = useState('')
 	const [message, setMessage] = useState('')
+
+	const {setToast} = useContext(DarkModeContext)
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -21,6 +24,7 @@ const ContactInfo = () => {
 				body: JSON.stringify({fullName, email, message})
 			})
 			const json = await response.json();
+			setToast((e)=>({...e, show: true, severity: 'info', message: json.status}))
 			console.log(json);
 		}
 		sendEmail();
@@ -28,6 +32,8 @@ const ContactInfo = () => {
 
 	return (
 		<Box mt={8}  maxWidth="1200px" mx={1}>
+			<Toast />
+			{/* <Button onClick={()=>setToast((e)=>({...e, show: true}))}>show toast</Button> */}
 			<Stack direction={{xs: "column", md : "row"}} 
 			alignItems='center'
 			justifyContent={{xs: "center", md : "space-between"}} my={2} p={2}>

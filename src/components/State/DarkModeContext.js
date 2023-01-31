@@ -19,12 +19,17 @@ const DarkModeState = ({children}) => {
     [mode]
   );
 
-
+      const [toast, setToast] = useState({
+        'message': "Task Completed",
+        'timeout': 3000,
+        'severity': "success",
+        'show': false,
+      })
   
 
 
   return (
-    <DarkModeContext.Provider value={{ mode, setMode }}>
+    <DarkModeContext.Provider value={{ mode, setMode, toast, setToast }}>
         <ThemeProvider theme={theme}>
         <CssBaseline />
             {children}

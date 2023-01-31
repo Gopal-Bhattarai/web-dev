@@ -12,6 +12,6 @@ export default async function handler(req, res){
         subject: newEmail.fullName,
         text: newEmail.email + '\n\n' + newEmail.message
     })
-    res.status(200).json({'message':'Email sent successfully!'})
+    res.status(200).json({'status':'Email sent successfully!'})
 
 }
