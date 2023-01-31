@@ -15,9 +15,10 @@ export function ProductContextProvider({ children }) {
 
   //fetching products details using localstorage IDs.
   const getProductsFromCart = () => {
+    
     if (selectedProducts.length !== 0) {
       const uniqueIds = [...new Set(selectedProducts)];
-      fetch("api/products?ids=" + uniqueIds.join(","))
+      fetch(`${process.env.HOST}/api/products?ids=` + uniqueIds.join(","))
         .then((response) => response.json())
         .then((json) => setProductsInfo(json));
     }
@@ -28,7 +29,7 @@ export function ProductContextProvider({ children }) {
 
   const getProduct = async (id) => {
     console.log('context',id);
-    await fetch(`/api/products?ids=${id}`)
+    await fetch(`${process.env.HOST}/api/products?ids=${id}`)
     .then((response)=>response.json())
     .then((json) => setProduct(json[0]))
   }
