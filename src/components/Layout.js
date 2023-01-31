@@ -6,8 +6,8 @@ import SpeedDialComponent from "./utils/SpeedDialComponent";
 const Layout = ({ children }) => {
   return (
     <Box>
-      <Box display='flex' justifyContent='center' alignItems='center'>
         <NavBar />
+      <Box display='flex' justifyContent='center' alignItems='center'>
         {children}
         <SpeedDialComponent />
         <Footer />

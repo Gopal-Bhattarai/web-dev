@@ -2,15 +2,34 @@ import { Home, Class, Category, Inventory2, AddShoppingCart } from "@mui/icons-m
 import { Box, Breadcrumbs, Button, Divider, ImageList, ImageListItem, Paper, Rating, Stack, Typography } from "@mui/material"
 import Image from "next/image"
 import Link from 'next/link'
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import AddRemoveQty from "./cart/AddRemoveQty"
 import { ProductContext } from "./State/ProductContext"
 
 
 const ProductItemView = ({product}) => {
 
-    const [thumbImage, setThumbImage] = useState(product.avatar)
+    const [thumbImage, setThumbImage] = useState('')
     const {selectedProducts, setSelectedProducts} = useContext(ProductContext)
+    const [sellerName, setSellerName] = useState('')
+
+    const getSellerName = async () => {
+        await fetch(`/api/users/id/${product.user}`)
+        .then(response=>response.json())
+        .then(json=>setSellerName(json.user))
+    }
+    useEffect(()=>{
+        getSellerName();
+        // eslint-disable-next-line
+    },[product.image])
+
+    useEffect(()=>{
+        setThumbImage(product.avatar)
+        // eslint-disable-next-line
+    },[product.image])
+
+    console.log('thumb',thumbImage);
+    console.log('image',product.image[0]);
 
 
   return (
@@ -68,14 +87,14 @@ const ProductItemView = ({product}) => {
         </Box>
 
         <Box border={1} borderRadius={5} overflow='hidden'  width={{xs: '300px', md: '450px'}} height={{xs: '300px', md: '450px'}} alignItems='center' position='relative' >
-            <Image src={`/products/${product._id}/${thumbImage}`} alt={product.productName} fill />
+            <Image src={`/products/${product._id}/${thumbImage}`} alt={product.productName} fill/>
         </Box>
 
         <Stack>
             
             <Typography variant='h3'>{product.productName}</Typography>
             
-            <Rating name="read-only" value={product.rating} sx={{color: '#2196f3'}} readOnly />
+            <Rating value={product.rating} sx={{color: '#2196f3'}} readOnly />
             <Divider />
             <hr />
 
@@ -85,7 +104,7 @@ const ProductItemView = ({product}) => {
             <Typography variant='overline'>Brand: {product.brand}</Typography>
             <Typography variant='overline'>Category: {product.category}</Typography>
             <Typography variant='overline'>Stock: {product.quantityInStock > 0 ? `Available, ${product.quantityInStock} in stock` : 'Out of Stock'}</Typography>
-            <Typography variant='overline'>Seller: {product.user}</Typography>
+            <Typography variant='overline'>Seller: {sellerName}</Typography>
 
             <Box my={2}>
                 {selectedProducts.find(e=>e===product._id) ? 

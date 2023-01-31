@@ -29,7 +29,7 @@ const Product = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Box mt={8}>
+      <Box mt={2}>
     
           {productid && product && 
             <ProductItemView product={product} />
