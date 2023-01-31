@@ -1,13 +1,32 @@
 import { Box, Button, Paper, Stack, TextField, Typography } from "@mui/material"
+import { useState } from "react";
 import { ContactDetail } from "./OwnerDetail"
 
-const handleSubmit = () => {
 
-}
 
 const ContactInfo = () => {
-  return (
-	<form onSubmit={handleSubmit}>
+	const [fullName, setFullName]= useState('')
+	const [email, setEmail] = useState('')
+	const [message, setMessage] = useState('')
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+
+		const sendEmail = async () => {
+			const response = await fetch('api/contact',{
+				method: 'POST',
+				headers: {
+					'Content-Type' : 'application/json',
+				},
+				body: JSON.stringify({fullName, email, message})
+			})
+			const json = await response.json();
+			console.log(json);
+		}
+		sendEmail();
+	}
+
+	return (
 		<Box mt={8}  maxWidth="1200px" mx={1}>
 			<Stack direction={{xs: "column", md : "row"}} 
 			alignItems='center'
@@ -36,14 +55,15 @@ const ContactInfo = () => {
 			</Stack>
 
 			<Paper sx={{p:5}}>
+				<form onSubmit={handleSubmit}>
 				<Typography variant='h4' sx={{mb:2}}>Get in Touch</Typography>
-				<TextField label="Full Name" fullWidth autoComplete="none"/>
-				<TextField sx={{my:3}} label="Email" fullWidth autoComplete="none"/>
-				<TextField label="Message" fullWidth multiline rows={5} autoComplete="none"/>
+				<TextField value={fullName} onChange={(e)=>setFullName(e.target.value)} label="Full Name" fullWidth autoComplete="none" required/>
+				<TextField type = "email" value={email} onChange={(e)=>setEmail(e.target.value)} sx={{my:3}} label="Email" fullWidth autoComplete="none" required/>
+				<TextField value={message} onChange={(e)=>setMessage(e.target.value)} label="Message" fullWidth multiline rows={5} autoComplete="none" required/>
 				<Button sx={{mt:5}} type="submit" variant="contained" fullWidth>send</Button>
+				</form>
 			</Paper>
 		</Box>
-	</form>
   )
 }
 
