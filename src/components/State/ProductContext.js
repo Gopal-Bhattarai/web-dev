@@ -23,6 +23,16 @@ export function ProductContextProvider({ children }) {
     }
   };
 
+  //Product Item View - Public view page
+  const [product, setProduct] = useState()
+
+  const getProduct = async (id) => {
+    console.log('context',id);
+    await fetch(`/api/products?ids=${id}`)
+    .then((response)=>response.json())
+    .then((json) => setProduct(json[0]))
+  }
+
   //calculating total amounts
   let delivery = DeliveryCharge;
   let subtotal = 0;
@@ -50,6 +60,7 @@ export function ProductContextProvider({ children }) {
         productsInfo,
         subtotal, delivery, total,
         phrase, setPhrase,
+        product, getProduct,
       }}
     >
       {children}
