@@ -8,7 +8,7 @@ const Logo = () => {
     const theme = useTheme();
 
     return (
-    <Link href="/">
+    <Link rel="preload" href="/" as="image">
     <Image
       priority
       src={theme.palette.mode === "light" ? WhiteLogo : BlackLogo}
