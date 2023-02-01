@@ -2,7 +2,7 @@ import { React, useEffect, useState } from "react";
 import Image from 'next/image'
 import {getSession, signIn, signOut} from "next-auth/react"
 import { useRouter } from "next/router";
-import { Box, Button, ButtonGroup, Card, Paper, Stack, Typography } from "@mui/material";
+import { Box, Button, ButtonGroup, Card, CircularProgress, Paper, Stack, Typography } from "@mui/material";
 import { Facebook, GitHub, Google, HowToReg, Key, VpnKeyOff } from "@mui/icons-material";
 
 
@@ -25,7 +25,7 @@ const Login = () => {
   },[])
 
   if(loading) {
-    return <h2>Loading...</h2>
+    return <CircularProgress />
   }
 
 
