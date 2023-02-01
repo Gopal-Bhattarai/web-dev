@@ -6,9 +6,9 @@ import dbConnection from "lib/DB.js";
 dbConnection();
 
 //sendgrid's API Key
-sgMail.setApiKey(process.env.NEXT_PUBLIC_SGMAIL_API);
-const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
-const CLIENT_URL = process.env.NEXT_PUBLIC_CLIENT_URL;
+sgMail.setApiKey(process.env.SGMAIL_API);
+const SERVER_URL = process.env.HOST;
+const CLIENT_URL = process.env.HOST;
 
 //Token creation process function
 const generateToken = (user, options) => {
@@ -57,7 +57,7 @@ const registerUser = (async (req, res) => {
       password,
       profile_pic: 'null',
       role: 'user',
-      type,
+      type: 'both',
       isVerified: false,
       isActive: false,
       ...rest,

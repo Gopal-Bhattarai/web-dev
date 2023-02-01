@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
 
   return (
     <Box>
-        <NavBar />
+      <NavBar />
 
       <Box display='flex' justifyContent='center' alignItems='center'>
         {children}

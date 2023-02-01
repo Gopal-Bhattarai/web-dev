@@ -35,7 +35,7 @@ export default async function handler(req, res){
         await updateProfile(req,res)
     }
 
-    if(params[0]==='signup'){
+    if(params[0]==='register'){
         await registerUser(req,res)
     }
 
