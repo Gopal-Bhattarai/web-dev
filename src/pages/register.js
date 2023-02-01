@@ -37,6 +37,7 @@ const Register = () => {
     const json = await response.json();
     console.log(json);
     setToast(e=>({...e, show: true, message: 'Registration success', severity:'success' }))
+    router.push('/login')
 
 }
 
