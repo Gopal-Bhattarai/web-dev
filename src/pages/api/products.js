@@ -6,7 +6,7 @@ export async function findAllProducts() {
 }
 
 export async function findAllProductsQuery() {
-    const page=1, limit=5; 
+    const page=1, limit=3; 
     return Product.find({}).limit(limit*1).skip((page-1)*limit).sort({ createdAt: -1 }).exec()
     // return Product.find().exec()
 }
